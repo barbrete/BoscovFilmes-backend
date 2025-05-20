@@ -1,4 +1,4 @@
-const prisma = require('./../../prisma/prismaClient');
+import prisma from '../../prisma/prismaClient';
 
 export const criarAvaliacao = (data: {
   idUsuario: number;

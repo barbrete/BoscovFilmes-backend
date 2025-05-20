@@ -1,4 +1,4 @@
-const prisma = require('./../../prisma/prismaClient');
+import prisma from '../../prisma/prismaClient';
 
 export const criarGeneroFilme = (data: { idFilme: number; idGenero: number }) =>  prisma.generoFilme.create({ data });
 
