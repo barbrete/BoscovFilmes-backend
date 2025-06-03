@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import usuarioRoute from './routes/UsuarioRoute';
 import filmeRoute from './routes/FilmesRoute';
 import generoRoute from './routes/GeneroRoute';
@@ -6,6 +7,7 @@ import generoFilmeRoute from './routes/GeneroFilmeRoute';
 import avaliacaoRoute from './routes/AvaliacaoRoute';
 
 const app = express();
+app.use(cors()); 
 app.use(express.json());
 
 app.get('/', (req, res) => {
