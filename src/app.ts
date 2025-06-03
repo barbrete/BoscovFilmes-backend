@@ -5,6 +5,7 @@ import filmeRoute from './routes/FilmesRoute';
 import generoRoute from './routes/GeneroRoute';
 import generoFilmeRoute from './routes/GeneroFilmeRoute';
 import avaliacaoRoute from './routes/AvaliacaoRoute';
+import authRoute from './routes/AuthRoute';
 
 const app = express();
 app.use(cors()); 
@@ -19,5 +20,6 @@ app.use('/filmes', filmeRoute);
 app.use('/generos', generoRoute);
 app.use('/generos-filme', generoFilmeRoute);
 app.use('/avaliacoes', avaliacaoRoute);
+app.use('/auth', authRoute);
 
 export default app;

@@ -6,7 +6,7 @@ export const criarAvaliacao = async (req: Request, res: Response) => {
   res.json(avaliacao);
 };
 
-export const listarAvaliacoes = async (req: Request, res: Response) => {
+export const listarAvaliacoes = async (res: Response) => {
   const avaliacoes = await avaliacaoService.listarAvaliacoes();
   res.json(avaliacoes);
 };
