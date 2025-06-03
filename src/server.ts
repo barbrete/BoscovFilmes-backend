@@ -1,23 +1,7 @@
-import express from 'express';
-import cors from 'cors';
-import usuarioRoute from './routes/UsuarioRoute';
-import filmeRoute from './routes/FilmesRoute';
-import generoRoute from './routes/GeneroRoute';
-import generoFilmeRoute from './routes/GeneroFilmeRoute';
-import avaliacaoRoute from './routes/AvaliacaoRoute';
+import app from './app';
 
-const app = express();
-app.use(cors()); 
-app.use(express.json());
+const PORT = process.env.PORT || 3000;
 
-app.get('/', (req, res) => {
-  res.send('API rodando!');
+app.listen(PORT, () => {
+  console.log(`Servidor rodando na porta ${PORT}`);
 });
-
-app.use('/usuarios', usuarioRoute);
-app.use('/filmes', filmeRoute);
-app.use('/generos', generoRoute);
-app.use('/generos-filme', generoFilmeRoute);
-app.use('/avaliacoes', avaliacaoRoute);
-
-export default app;
