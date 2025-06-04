@@ -1,9 +1,16 @@
 import * as filmeService from '../services/FilmeService';
 import { Request, Response } from 'express';
+import { filmeSchema } from '../shemas/FilmeSchema';
 
-export const criarFilme = async (req: Request, res: Response) => {
-  const filme = await filmeService.criarFilme(req.body);
-  res.json(filme);
+export const criarFilme = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const filme = await filmeService.criarFilme(req.body);
+    res.status(201).json(filme);
+    return;
+  } catch (err) {
+    res.status(500).json({ error: "Erro ao criar filme", detalhes: err });
+    return;
+  }
 };
 
 export const listarFilmes = async (req: Request, res: Response) => {

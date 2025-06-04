@@ -1,5 +1,15 @@
 import prisma from '../../prisma/prismaClient';
 
+// export const criarFilme = (data: {
+//   nome: string;
+//   diretor: string;
+//   anoLancamento: Date;
+//   duracao: Date;
+//   produtora: string;
+//   classificacao: string;
+//   poster: string;
+// }) => prisma.filme.create({ data });
+
 export const criarFilme = (data: {
   nome: string;
   diretor: string;
@@ -8,8 +18,29 @@ export const criarFilme = (data: {
   produtora: string;
   classificacao: string;
   poster: string;
-}) => prisma.filme.create({ data });
-
+  generosId?: number[];
+}) => {
+  return prisma.filme.create({
+    data: {
+      nome: data.nome,
+      diretor: data.diretor,
+      anoLancamento: data.anoLancamento,
+      duracao: data.duracao,
+      produtora: data.produtora,
+      classificacao: data.classificacao,
+      poster: data.poster,
+      generos: data.generosId
+        ? {
+            create: data.generosId.map((id) => ({
+              // Aqui estamos criando um registro na tabela GeneroFilme
+              // que conecta este filme ao genero existente com o id informado
+              genero: { connect: { id } },
+            })),
+          }
+        : undefined,
+    },
+  });
+};
 export const listarFilmes = () => prisma.filme.findMany();
 
 export const buscarFilmePorId = (id: number) => prisma.filme.findUnique({ where: { id } });
