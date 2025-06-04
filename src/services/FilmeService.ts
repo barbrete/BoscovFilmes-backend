@@ -1,6 +1,6 @@
 import prisma from '../../prisma/prismaClient';
 
-export const criarFilme = (data: {
+export const criarFilme = async (data: {
   nome: string;
   diretor: string;
   anoLancamento: Date;
@@ -8,7 +8,25 @@ export const criarFilme = (data: {
   produtora: string;
   classificacao: string;
   poster: string;
-}) => prisma.filme.create({ data });
+  generos: number[];
+}) => {
+  return prisma.filme.create({
+    data: {
+      nome: data.nome,
+      diretor: data.diretor,
+      anoLancamento: data.anoLancamento,
+      duracao: data.duracao,
+      produtora: data.produtora,
+      classificacao: data.classificacao,
+      poster: data.poster,
+      generos: {
+        create: data.generos.map(idGenero => ({
+          genero: { connect: { id: idGenero } }
+        }))
+      }
+    }
+  });
+};
 
 export const listarFilmes = () => prisma.filme.findMany();
 
@@ -25,3 +43,10 @@ export const atualizarFilme = (id: number, data: {
 }) => prisma.filme.update({ where: { id }, data });
 
 export const deletarFilme = (id: number) => prisma.filme.delete({ where: { id } });
+
+// export const listarFilmesRecentes = () =>
+//   prisma.filme.findMany({
+//     orderBy: { createdAt: 'desc' }, 
+//     take: 10
+//   });
+
