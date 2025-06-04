@@ -6,6 +6,8 @@ import generoRoute from './routes/GeneroRoute';
 import generoFilmeRoute from './routes/GeneroFilmeRoute';
 import avaliacaoRoute from './routes/AvaliacaoRoute';
 import authRoute from './routes/AuthRoute';
+import swaggerUi from 'swagger-ui-express';
+import { swaggerSpec } from './config/swagger';
 
 const app = express();
 app.use(cors()); 
@@ -21,5 +23,7 @@ app.use('/generos', generoRoute);
 app.use('/generos-filme', generoFilmeRoute);
 app.use('/avaliacoes', avaliacaoRoute);
 app.use('/auth', authRoute);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 
 export default app;
