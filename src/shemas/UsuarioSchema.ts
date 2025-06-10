@@ -12,4 +12,6 @@ export const usuarioSchema = z.object({
   apelido: z.string().nonempty("Apelido é obrigatório"),
   password: z.string().min(6, "A senha deve ter pelo menos 6 caracteres"),
   status: z.boolean(),
+  tipo_usuario: z.string().min(1)
+
 });
