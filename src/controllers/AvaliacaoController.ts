@@ -14,8 +14,12 @@ export const criarAvaliacao = async (req: Request, res: Response): Promise<void>
     const avaliacao = await avaliacaoService.criarAvaliacao(parseResult.data);
     res.status(201).json(avaliacao);
     return;
-  } catch (err) {
+  } catch (err: any) {
     console.log('Erro ao criar avaliação:', err);
+    if (err.code === 'P2002') {
+      res.status(409).json({ erro: "Você já avaliou esse filme." });
+      return;
+    }
     res.status(500).json({ erro: "Erro ao criar avaliação", detalhes: err });
     return;
   }
@@ -27,10 +31,6 @@ export const listarAvaliacoes = async (req: Request, res: Response) : Promise<vo
     res.json(avaliacoes);
     return;
   } catch (err: any) {
-    if (err.code === 'P2002') {
-      res.status(409).json({ erro: "Você já avaliou esse filme." });
-      return;
-    }
     res.status(500).json({ erro: "Erro ao listar avaliações", detalhes: err });
     return;
   }
