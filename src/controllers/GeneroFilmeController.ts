@@ -165,7 +165,6 @@ export const buscarGeneroFilme = async (req: Request, res: Response): Promise<vo
  *           schema:
  *             type: object
  *             properties:
- *               // Caso haja outros campos para serem atualizados, defina aqui
  *               exemplo:
  *                 type: string
  *                 example: "valor atualizado"
