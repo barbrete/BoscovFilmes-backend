@@ -12,7 +12,7 @@ const options = {
   
   servers: [
       {
-        url: 'http://localhost:3000', // ajuste a URL/porta se necessário
+        url: 'http://localhost:3002',
       },
     ],
   apis: ['./src/routes/*.ts', './src/controllers/*.ts'],
