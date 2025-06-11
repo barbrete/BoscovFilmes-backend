@@ -167,7 +167,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\Barbrete\\Desktop\\DAW II\\BoscovFilmesAPP\\generated\\prisma",
+      "value": "C:\\Users\\barbara.gianvechio\\Desktop\\DAWII\\BoscovFilmes-backend\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -181,7 +181,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\Barbrete\\Desktop\\DAW II\\BoscovFilmesAPP\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\Users\\barbara.gianvechio\\Desktop\\DAWII\\BoscovFilmes-backend\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
