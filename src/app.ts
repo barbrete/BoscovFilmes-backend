@@ -25,5 +25,7 @@ app.use('/generos', generoRoute);
 app.use('/generos-filme', generoFilmeRoute);
 app.use('/avaliacoes', avaliacaoRoute);
 app.use('/auth', authRoute);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 
 export default app;
