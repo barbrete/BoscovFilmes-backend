@@ -13,6 +13,7 @@ export const criarUsuario = async (req: Request, res: Response): Promise<void> =
     res.status(201).json(usuario);
     return;
   } catch (err) {
+    console.log('Erro ao criar usuario:', err); 
     res.status(500).json({ error: "Erro ao criar usuário", details: err });
     return;
   }
@@ -43,7 +44,6 @@ export const buscarUsuarioPorId = async (req: Request, res: Response): Promise<v
 
 export const atualizarUsuario = async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params;
-  // Para atualização, usamos o schema parcial para permitir envio de campos opcionais
   const parseResult = usuarioSchema.partial().safeParse(req.body);
   if (!parseResult.success) {
     res.status(400).json({ errors: parseResult.error.errors });
@@ -66,6 +66,7 @@ export const deletarUsuario = async (req: Request, res: Response): Promise<void>
     res.json(usuario);
     return;
   } catch (err) {
+    console.log('Erro ao deletar usuario:', err); 
     res.status(500).json({ error: "Erro ao deletar usuário", details: err });
     return;
   }

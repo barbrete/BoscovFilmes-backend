@@ -8,6 +8,7 @@ export const criarFilme = async (req: Request, res: Response): Promise<void> => 
     res.status(201).json(filme);
     return;
   } catch (err) {
+    console.log('Erro ao criar filme:', err);
     res.status(500).json({ error: "Erro ao criar filme", detalhes: err });
     return;
   }

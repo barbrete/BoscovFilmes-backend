@@ -40,7 +40,17 @@ export const listarFilmes = () => prisma.filme.findMany({
   }
 });
 
-export const buscarFilmePorId = (id: number) => prisma.filme.findUnique({ where: { id } });
+export const buscarFilmePorId = (id: number) =>
+  prisma.filme.findUnique({
+    where: { id },
+    include: {
+      avaliacoes: {
+        include: {
+          usuario: true
+        }
+      }
+    }
+  });
 
 export const atualizarFilme = (id: number, data: { 
   nome?: string;
