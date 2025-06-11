@@ -1,14 +1,14 @@
 import prisma from '../../prisma/prismaClient';
 
-export const criarFilme = async (data: {
+export const criarFilme = (data: {
   nome: string;
   diretor: string;
   anoLancamento: Date;
-  duracao: Date;
+  duracao: number; 
   produtora: string;
   classificacao: string;
   poster: string;
-  generos: number[];
+  generosId?: number[];
 }) => {
   return prisma.filme.create({
     data: {
@@ -19,34 +19,47 @@ export const criarFilme = async (data: {
       produtora: data.produtora,
       classificacao: data.classificacao,
       poster: data.poster,
-      generos: {
-        create: data.generos.map(idGenero => ({
-          genero: { connect: { id: idGenero } }
-        }))
-      }
-    }
+      generos: data.generosId
+        ? {
+            create: data.generosId.map((id) => ({
+              genero: { connect: { id } },
+            })),
+          }
+        : undefined,
+    },
   });
 };
 
-export const listarFilmes = () => prisma.filme.findMany();
+export const listarFilmes = () => prisma.filme.findMany({
+  include: {
+    avaliacoes: {
+      include: {
+        usuario: true
+      }
+    }
+  }
+});
 
-export const buscarFilmePorId = (id: number) => prisma.filme.findUnique({ where: { id } });
+export const buscarFilmePorId = (id: number) =>
+  prisma.filme.findUnique({
+    where: { id },
+    include: {
+      avaliacoes: {
+        include: {
+          usuario: true
+        }
+      }
+    }
+  });
 
 export const atualizarFilme = (id: number, data: { 
   nome?: string;
   diretor?: string;
   anoLancamento?: Date;
-  duracao?: Date;
+  duracao?: number;
   produtora?: string;
   classificacao?: string;
   poster?: string;
 }) => prisma.filme.update({ where: { id }, data });
 
 export const deletarFilme = (id: number) => prisma.filme.delete({ where: { id } });
-
-// export const listarFilmesRecentes = () =>
-//   prisma.filme.findMany({
-//     orderBy: { createdAt: 'desc' }, 
-//     take: 10
-//   });
-

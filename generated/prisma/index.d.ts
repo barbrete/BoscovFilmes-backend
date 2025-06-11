@@ -3612,10 +3612,12 @@ export namespace Prisma {
 
   export type FilmeAvgAggregateOutputType = {
     id: number | null
+    duracao: number | null
   }
 
   export type FilmeSumAggregateOutputType = {
     id: number | null
+    duracao: number | null
   }
 
   export type FilmeMinAggregateOutputType = {
@@ -3623,7 +3625,7 @@ export namespace Prisma {
     nome: string | null
     diretor: string | null
     anoLancamento: Date | null
-    duracao: Date | null
+    duracao: number | null
     produtora: string | null
     classificacao: string | null
     poster: string | null
@@ -3634,7 +3636,7 @@ export namespace Prisma {
     nome: string | null
     diretor: string | null
     anoLancamento: Date | null
-    duracao: Date | null
+    duracao: number | null
     produtora: string | null
     classificacao: string | null
     poster: string | null
@@ -3655,10 +3657,12 @@ export namespace Prisma {
 
   export type FilmeAvgAggregateInputType = {
     id?: true
+    duracao?: true
   }
 
   export type FilmeSumAggregateInputType = {
     id?: true
+    duracao?: true
   }
 
   export type FilmeMinAggregateInputType = {
@@ -3786,7 +3790,7 @@ export namespace Prisma {
     nome: string
     diretor: string
     anoLancamento: Date
-    duracao: Date
+    duracao: number
     produtora: string
     classificacao: string
     poster: string
@@ -3878,7 +3882,7 @@ export namespace Prisma {
       nome: string
       diretor: string
       anoLancamento: Date
-      duracao: Date
+      duracao: number
       produtora: string
       classificacao: string
       poster: string
@@ -4311,7 +4315,7 @@ export namespace Prisma {
     readonly nome: FieldRef<"Filme", 'String'>
     readonly diretor: FieldRef<"Filme", 'String'>
     readonly anoLancamento: FieldRef<"Filme", 'DateTime'>
-    readonly duracao: FieldRef<"Filme", 'DateTime'>
+    readonly duracao: FieldRef<"Filme", 'Int'>
     readonly produtora: FieldRef<"Filme", 'String'>
     readonly classificacao: FieldRef<"Filme", 'String'>
     readonly poster: FieldRef<"Filme", 'String'>
@@ -7210,7 +7214,7 @@ export namespace Prisma {
     nome?: StringFilter<"Filme"> | string
     diretor?: StringFilter<"Filme"> | string
     anoLancamento?: DateTimeFilter<"Filme"> | Date | string
-    duracao?: DateTimeFilter<"Filme"> | Date | string
+    duracao?: IntFilter<"Filme"> | number
     produtora?: StringFilter<"Filme"> | string
     classificacao?: StringFilter<"Filme"> | string
     poster?: StringFilter<"Filme"> | string
@@ -7239,7 +7243,7 @@ export namespace Prisma {
     nome?: StringFilter<"Filme"> | string
     diretor?: StringFilter<"Filme"> | string
     anoLancamento?: DateTimeFilter<"Filme"> | Date | string
-    duracao?: DateTimeFilter<"Filme"> | Date | string
+    duracao?: IntFilter<"Filme"> | number
     produtora?: StringFilter<"Filme"> | string
     classificacao?: StringFilter<"Filme"> | string
     poster?: StringFilter<"Filme"> | string
@@ -7271,7 +7275,7 @@ export namespace Prisma {
     nome?: StringWithAggregatesFilter<"Filme"> | string
     diretor?: StringWithAggregatesFilter<"Filme"> | string
     anoLancamento?: DateTimeWithAggregatesFilter<"Filme"> | Date | string
-    duracao?: DateTimeWithAggregatesFilter<"Filme"> | Date | string
+    duracao?: IntWithAggregatesFilter<"Filme"> | number
     produtora?: StringWithAggregatesFilter<"Filme"> | string
     classificacao?: StringWithAggregatesFilter<"Filme"> | string
     poster?: StringWithAggregatesFilter<"Filme"> | string
@@ -7508,7 +7512,7 @@ export namespace Prisma {
     nome: string
     diretor: string
     anoLancamento: Date | string
-    duracao: Date | string
+    duracao: number
     produtora: string
     classificacao: string
     poster: string
@@ -7521,7 +7525,7 @@ export namespace Prisma {
     nome: string
     diretor: string
     anoLancamento: Date | string
-    duracao: Date | string
+    duracao: number
     produtora: string
     classificacao: string
     poster: string
@@ -7533,7 +7537,7 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     diretor?: StringFieldUpdateOperationsInput | string
     anoLancamento?: DateTimeFieldUpdateOperationsInput | Date | string
-    duracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    duracao?: IntFieldUpdateOperationsInput | number
     produtora?: StringFieldUpdateOperationsInput | string
     classificacao?: StringFieldUpdateOperationsInput | string
     poster?: StringFieldUpdateOperationsInput | string
@@ -7546,7 +7550,7 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     diretor?: StringFieldUpdateOperationsInput | string
     anoLancamento?: DateTimeFieldUpdateOperationsInput | Date | string
-    duracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    duracao?: IntFieldUpdateOperationsInput | number
     produtora?: StringFieldUpdateOperationsInput | string
     classificacao?: StringFieldUpdateOperationsInput | string
     poster?: StringFieldUpdateOperationsInput | string
@@ -7559,7 +7563,7 @@ export namespace Prisma {
     nome: string
     diretor: string
     anoLancamento: Date | string
-    duracao: Date | string
+    duracao: number
     produtora: string
     classificacao: string
     poster: string
@@ -7569,7 +7573,7 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     diretor?: StringFieldUpdateOperationsInput | string
     anoLancamento?: DateTimeFieldUpdateOperationsInput | Date | string
-    duracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    duracao?: IntFieldUpdateOperationsInput | number
     produtora?: StringFieldUpdateOperationsInput | string
     classificacao?: StringFieldUpdateOperationsInput | string
     poster?: StringFieldUpdateOperationsInput | string
@@ -7580,7 +7584,7 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     diretor?: StringFieldUpdateOperationsInput | string
     anoLancamento?: DateTimeFieldUpdateOperationsInput | Date | string
-    duracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    duracao?: IntFieldUpdateOperationsInput | number
     produtora?: StringFieldUpdateOperationsInput | string
     classificacao?: StringFieldUpdateOperationsInput | string
     poster?: StringFieldUpdateOperationsInput | string
@@ -7947,6 +7951,7 @@ export namespace Prisma {
 
   export type FilmeAvgOrderByAggregateInput = {
     id?: SortOrder
+    duracao?: SortOrder
   }
 
   export type FilmeMaxOrderByAggregateInput = {
@@ -7973,6 +7978,7 @@ export namespace Prisma {
 
   export type FilmeSumOrderByAggregateInput = {
     id?: SortOrder
+    duracao?: SortOrder
   }
 
   export type GeneroScalarRelationFilter = {
@@ -8536,7 +8542,7 @@ export namespace Prisma {
     nome: string
     diretor: string
     anoLancamento: Date | string
-    duracao: Date | string
+    duracao: number
     produtora: string
     classificacao: string
     poster: string
@@ -8548,7 +8554,7 @@ export namespace Prisma {
     nome: string
     diretor: string
     anoLancamento: Date | string
-    duracao: Date | string
+    duracao: number
     produtora: string
     classificacao: string
     poster: string
@@ -8611,7 +8617,7 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     diretor?: StringFieldUpdateOperationsInput | string
     anoLancamento?: DateTimeFieldUpdateOperationsInput | Date | string
-    duracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    duracao?: IntFieldUpdateOperationsInput | number
     produtora?: StringFieldUpdateOperationsInput | string
     classificacao?: StringFieldUpdateOperationsInput | string
     poster?: StringFieldUpdateOperationsInput | string
@@ -8623,7 +8629,7 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     diretor?: StringFieldUpdateOperationsInput | string
     anoLancamento?: DateTimeFieldUpdateOperationsInput | Date | string
-    duracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    duracao?: IntFieldUpdateOperationsInput | number
     produtora?: StringFieldUpdateOperationsInput | string
     classificacao?: StringFieldUpdateOperationsInput | string
     poster?: StringFieldUpdateOperationsInput | string
@@ -8714,7 +8720,7 @@ export namespace Prisma {
     nome: string
     diretor: string
     anoLancamento: Date | string
-    duracao: Date | string
+    duracao: number
     produtora: string
     classificacao: string
     poster: string
@@ -8726,7 +8732,7 @@ export namespace Prisma {
     nome: string
     diretor: string
     anoLancamento: Date | string
-    duracao: Date | string
+    duracao: number
     produtora: string
     classificacao: string
     poster: string
@@ -8767,7 +8773,7 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     diretor?: StringFieldUpdateOperationsInput | string
     anoLancamento?: DateTimeFieldUpdateOperationsInput | Date | string
-    duracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    duracao?: IntFieldUpdateOperationsInput | number
     produtora?: StringFieldUpdateOperationsInput | string
     classificacao?: StringFieldUpdateOperationsInput | string
     poster?: StringFieldUpdateOperationsInput | string
@@ -8779,7 +8785,7 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     diretor?: StringFieldUpdateOperationsInput | string
     anoLancamento?: DateTimeFieldUpdateOperationsInput | Date | string
-    duracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    duracao?: IntFieldUpdateOperationsInput | number
     produtora?: StringFieldUpdateOperationsInput | string
     classificacao?: StringFieldUpdateOperationsInput | string
     poster?: StringFieldUpdateOperationsInput | string

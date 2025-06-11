@@ -25,6 +25,18 @@ export const criarUsuario = async (data: {
 };
 
 export const listarUsuarios = () => prisma.usuario.findMany();
-export const buscarUsuarioPorId = (id: number) => prisma.usuario.findUnique({ where: { id } });
+
+export const buscarUsuarioPorId = (id: number) =>
+  prisma.usuario.findUnique({
+    where: { id },
+    include: {
+      avaliacao: {
+        include: {
+          filme: true 
+        }
+      }
+    }
+  });
+  
 export const atualizarUsuario = (id: number, data: any) => prisma.usuario.update({ where: { id }, data });
 export const deletarUsuario = (id: number) => prisma.usuario.update({ where: { id }, data: { status: false } });
