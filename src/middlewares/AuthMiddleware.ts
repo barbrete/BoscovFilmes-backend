@@ -13,9 +13,11 @@ export const autenticarToken = (req: Request, res: Response, next: NextFunction)
 
   jwt.verify(token, SECRET, (err, usuario) => {
     if (err) {
+      console.log("Erro na verificação do token:", err);
       res.sendStatus(403);
       return;
     }
+    console.log("Token verificado, usuário:", usuario);
     (req as any).usuario = usuario;
     next();
   });

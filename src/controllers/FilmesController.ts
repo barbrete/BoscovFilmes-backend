@@ -8,6 +8,8 @@ import { filmeSchema } from '../shemas/FilmeSchema';
  *   post:
  *     summary: Cria um novo filme
  *     tags: [Filmes]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       description: Dados do filme a ser criado
  *       required: true
@@ -73,6 +75,8 @@ export const criarFilme = async (req: Request, res: Response): Promise<void> => 
  *   get:
  *     summary: Lista todos os filmes
  *     tags: [Filmes]
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Lista de filmes retornada com sucesso
@@ -89,9 +93,6 @@ export const criarFilme = async (req: Request, res: Response): Promise<void> => 
  *                   nome:
  *                     type: string
  *                     example: "Inception"
- *                   diretor:
- *                     type: string
- *                     example: "Christopher Nolan"
  *       500:
  *         description: Erro interno ao listar filmes
  */
@@ -181,9 +182,14 @@ export const buscarFilmePorId = async (req: Request, res: Response) => {
  *         description: Erro interno ao atualizar o filme
  */
 export const atualizarFilme = async (req: Request, res: Response) => {
-  const { id } = req.params;
-  const filme = await filmeService.atualizarFilme(Number(id), req.body);
-  res.json(filme);
+  try {
+    const { id } = req.params;
+    const filme = await filmeService.atualizarFilme(Number(id), req.body);
+    res.json(filme);
+  } catch (err) {
+    console.log('Erro ao atualizar filme:', err);
+    res.status(500).json({ erro: "Erro ao atualizar filme", detalhes: err });
+  }
 };
 
 /**

@@ -212,6 +212,7 @@ export const deletarGenero = async (req: Request, res: Response) => {
     const genero = await generoService.deletarGenero(Number(id));
     res.json(genero);
   } catch (err) {
+    console.error("Erro ao excluir gênero:", err);
     res.status(500).json({ error: "Erro ao deletar gênero", details: err });
   }
 };
