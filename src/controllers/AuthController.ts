@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
 import * as AuthService from '../services/AuthService';
+import bcrypt from 'bcryptjs';
+import * as usuarioService from '../services/UsuarioService';
 
 /**
  * @swagger
@@ -61,15 +63,13 @@ export const login = async (req: Request, res: Response) => {
   res.json(result);
 };
 
-/* 
-// Se houver outras funções, adicione blocos de documentação semelhantes.
-// Exemplo para um eventual endpoint de registro:
+
 /**
  * @swagger
  * /auth/register:
  *   post:
  *     summary: Registra um novo usuário
- *     description: Recebe os dados do novo usuário e cria uma conta.
+ *     description: Cria um novo usuário para a aplicação.
  *     tags: [Autenticação]
  *     requestBody:
  *       description: Dados para registro do usuário
@@ -84,10 +84,23 @@ export const login = async (req: Request, res: Response) => {
  *                 example: "João da Silva"
  *               email:
  *                 type: string
- *                 example: joao@example.com
+ *                 example: "joao@example.com"
  *               password:
  *                 type: string
- *                 example: "senhaSegura123"
+ *                 example: "senha123"
+ *               apelido:
+ *                 type: string
+ *                 example: "joaoS"
+ *               data_nascimento:
+ *                 type: string
+ *                 format: date-time
+ *                 example: "1990-01-01T00:00:00.000Z"
+ *               status:
+ *                 type: boolean
+ *                 example: true
+ *               tipo_usuario:
+ *                 type: string
+ *                 example: "user"
  *     responses:
  *       201:
  *         description: Usuário criado com sucesso
@@ -96,16 +109,34 @@ export const login = async (req: Request, res: Response) => {
  *             schema:
  *               type: object
  *               properties:
- *                 usuario:
- *                   type: object
- *                   properties:
- *                     id:
- *                       type: number
- *                       example: 3
- *                     email:
- *                       type: string
- *                       example: joao@example.com
+ *                 id:
+ *                   type: number
+ *                   example: 1
+ *                 nome:
+ *                   type: string
+ *                   example: "João da Silva"
+ *                 email:
+ *                   type: string
+ *                   example: "joao@example.com"
  *       400:
- *         description: Erro na criação do usuário
+ *         description: Dados inválidos para criação do usuário
+ *       500:
+ *         description: Erro interno na criação do usuário
  */
-// export const register = async (req: Request, res: Response) => { ... }
+export const register = async (req: Request, res: Response): Promise<void> => {
+  try {
+    // Criptografa a senha antes de salvar
+    const passwordHash = await bcrypt.hash(req.body.password, 10);
+    
+    const novoUsuario = {
+      ...req.body,
+      password: passwordHash,
+    };
+
+    // Chama o serviço que cria o usuário no banco
+    const usuario = await usuarioService.criarUsuario(novoUsuario);
+    res.status(201).json(usuario);
+  } catch (err) {
+    res.status(500).json({ error: "Erro ao registrar usuário", details: err });
+  }
+};

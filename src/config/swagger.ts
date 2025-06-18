@@ -8,13 +8,26 @@ const options = {
       version: '1.0.0',
       description: 'Documentação da API usando Swagger',
     },
-  },
-  
-  servers: [
+    servers: [
       {
         url: 'http://localhost:3002',
       },
     ],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+      },
+    },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
+  },
   apis: ['./src/routes/*.ts', './src/controllers/*.ts'],
 };
 

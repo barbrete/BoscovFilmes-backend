@@ -73,6 +73,8 @@ export const criarFilme = async (req: Request, res: Response): Promise<void> => 
  *   get:
  *     summary: Lista todos os filmes
  *     tags: [Filmes]
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Lista de filmes retornada com sucesso
@@ -89,9 +91,6 @@ export const criarFilme = async (req: Request, res: Response): Promise<void> => 
  *                   nome:
  *                     type: string
  *                     example: "Inception"
- *                   diretor:
- *                     type: string
- *                     example: "Christopher Nolan"
  *       500:
  *         description: Erro interno ao listar filmes
  */

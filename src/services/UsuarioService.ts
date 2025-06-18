@@ -1,5 +1,4 @@
 import prisma from '../../prisma/prismaClient';
-import bcrypt from 'bcryptjs';
 
 export const criarUsuario = async (data: {
     email: string;
@@ -10,14 +9,13 @@ export const criarUsuario = async (data: {
     data_nascimento: Date;
     tipo_usuario: string;
 }) => {
-    const hashedPassword = await bcrypt.hash(data.password, 10);
     return prisma.usuario.create({
         data: {
             nome: data.nome,
             email: data.email,
             apelido: data.apelido,
             data_nascimento: data.data_nascimento,
-            password: hashedPassword,
+            password: data.password,
             status: data.status,
             tipo_usuario: data.tipo_usuario,
         },
