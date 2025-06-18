@@ -24,6 +24,8 @@ app.get('/', (req, res) => {
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use('/auth', authRoute);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 
 app.use('/usuarios', autenticarToken, checkUserStatus, usuarioRoute);
 app.use('/filmes', autenticarToken, checkUserStatus, filmeRoute);
