@@ -4,13 +4,13 @@ const options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'Sua API',
+      title: 'BoscovFilmes',
       version: '1.0.0',
-      description: 'Documentação da API usando Swagger',
+      description: 'Documentação da API BoscovFilmes usando Swagger',
     },
     servers: [
       {
-        url: 'http://localhost:3002',
+        url: 'http://localhost:3001',
       },
     ],
     components: {

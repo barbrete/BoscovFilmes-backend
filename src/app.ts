@@ -23,14 +23,12 @@ app.get('/', (req, res) => {
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-
 app.use('/auth', authRoute);
-app.use('/usuarios', autenticarToken, checkUserStatus, usuarioRoute);
-app.use('/filmes', autenticarToken, checkUserStatus, filmeRoute);
-app.use('/generos', autenticarToken, checkUserStatus, generoRoute);
-app.use('/generos-filme', autenticarToken, checkUserStatus, generoFilmeRoute);
-app.use('/avaliacoes', autenticarToken, checkUserStatus, avaliacaoRoute);
 app.use('/admin', autenticarToken, checkAdmin, adminRoute);
+app.use('/filmes', filmeRoute);
+app.use('/avaliacoes', avaliacaoRoute);
+app.use('/generos', generoRoute);
+app.use('/usuarios', usuarioRoute);
+app.use('/generos-filme', autenticarToken, checkUserStatus, generoFilmeRoute);
 
 export default app;

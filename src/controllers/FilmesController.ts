@@ -8,6 +8,8 @@ import { filmeSchema } from '../shemas/FilmeSchema';
  *   post:
  *     summary: Cria um novo filme
  *     tags: [Filmes]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       description: Dados do filme a ser criado
  *       required: true

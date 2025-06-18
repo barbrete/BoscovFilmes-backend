@@ -1,12 +1,15 @@
 import { Router } from 'express';
 import * as filmesController from '../controllers/FilmesController';
+import { autenticarToken } from '../middlewares/AuthMiddleware';
+import { checkAdmin } from '../middlewares/CheckAdminMiddleware';
 
 const router = Router();
 
-router.post('/', filmesController.criarFilme);
-router.get('/', filmesController.listarFilmes);
-router.get('/:id', filmesController.buscarFilmePorId);
-router.put('/:id', filmesController.atualizarFilme);
-router.delete('/:id', filmesController.deletarFilme);
+router.get('/', autenticarToken, filmesController.listarFilmes);
+router.get('/:id', autenticarToken, filmesController.buscarFilmePorId);
+
+router.post('/', autenticarToken, checkAdmin, filmesController.criarFilme);
+router.put('/:id', autenticarToken, checkAdmin, filmesController.atualizarFilme);
+router.delete('/:id', autenticarToken, checkAdmin, filmesController.deletarFilme);
 
 export default router;
