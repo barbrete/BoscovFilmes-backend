@@ -182,9 +182,14 @@ export const buscarFilmePorId = async (req: Request, res: Response) => {
  *         description: Erro interno ao atualizar o filme
  */
 export const atualizarFilme = async (req: Request, res: Response) => {
-  const { id } = req.params;
-  const filme = await filmeService.atualizarFilme(Number(id), req.body);
-  res.json(filme);
+  try {
+    const { id } = req.params;
+    const filme = await filmeService.atualizarFilme(Number(id), req.body);
+    res.json(filme);
+  } catch (err) {
+    console.log('Erro ao atualizar filme:', err);
+    res.status(500).json({ erro: "Erro ao atualizar filme", detalhes: err });
+  }
 };
 
 /**

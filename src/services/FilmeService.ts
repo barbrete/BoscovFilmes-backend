@@ -36,6 +36,11 @@ export const listarFilmes = () => prisma.filme.findMany({
       include: {
         usuario: true
       }
+    }, 
+    generos: {
+      include: {
+        genero: true
+      }
     }
   }
 });
@@ -52,14 +57,36 @@ export const buscarFilmePorId = (id: number) =>
     }
   });
 
-export const atualizarFilme = (id: number, data: { 
-  nome?: string;
-  diretor?: string;
-  anoLancamento?: Date;
-  duracao?: number;
-  produtora?: string;
-  classificacao?: string;
-  poster?: string;
-}) => prisma.filme.update({ where: { id }, data });
+export const atualizarFilme = (
+  id: number,
+  data: {
+    nome?: string;
+    diretor?: string;
+    anoLancamento?: Date;
+    duracao?: number;
+    produtora?: string;
+    classificacao?: string;
+    poster?: string;
+    generos?: number[];
+  }
+) => {
+  const { generos, ...resto } = data;
+  return prisma.filme.update({
+    where: { id },
+    data: {
+      ...resto,
+      ...(Array.isArray(generos) && {
+        generos: {
+          set: generos.map(idGenero => ({
+            idFilme_idGenero: {
+              idFilme: id,
+              idGenero
+            }
+          }))
+        }
+      })
+    }
+  });
+};
 
 export const deletarFilme = (id: number) => prisma.filme.delete({ where: { id } });
