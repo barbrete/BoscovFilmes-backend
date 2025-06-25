@@ -4,14 +4,16 @@ export const criarFilme = (data: {
   nome: string;
   diretor: string;
   anoLancamento: Date;
-  duracao: number; 
+  duracao: number;
   produtora: string;
   classificacao: string;
   poster: string;
   generosId?: number[];
 }) => {
+  console.log("Dados recebidos para criar filme:", data);
   return prisma.filme.create({
     data: {
+
       nome: data.nome,
       diretor: data.diretor,
       anoLancamento: data.anoLancamento,
@@ -21,29 +23,30 @@ export const criarFilme = (data: {
       poster: data.poster,
       generos: data.generosId
         ? {
-            create: data.generosId.map((id) => ({
-              genero: { connect: { id } },
-            })),
-          }
+          create: data.generosId.map((id) => ({
+            genero: { connect: { id } },
+          })),
+        }
         : undefined,
     },
   });
 };
 
-export const listarFilmes = () => prisma.filme.findMany({
-  include: {
-    avaliacoes: {
-      include: {
-        usuario: true
-      }
-    }, 
-    generos: {
-      include: {
-        genero: true
+export const listarFilmes = () => prisma.filme.findMany(
+  {
+    include: {
+      avaliacoes: {
+        include: {
+          usuario: true
+        }
+      },
+      generos: {
+        include: {
+          genero: true
+        }
       }
     }
-  }
-});
+  });
 
 export const buscarFilmePorId = (id: number) =>
   prisma.filme.findUnique({
@@ -75,16 +78,16 @@ export const atualizarFilme = (
     where: { id },
     data: {
       ...resto,
-      ...(Array.isArray(generos) && {
-        generos: {
-          set: generos.map(idGenero => ({
-            idFilme_idGenero: {
-              idFilme: id,
-              idGenero
+      ...(Array.isArray(generos) && generos.length > 0
+        ? {
+            generos: {
+              deleteMany: {}, // Remove todos os antigos
+              create: generos.map(idGenero => ({
+                genero: { connect: { id: idGenero } }
+              }))
             }
-          }))
-        }
-      })
+          }
+        : {})
     }
   });
 };

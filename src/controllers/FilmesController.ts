@@ -98,6 +98,8 @@ export const criarFilme = async (req: Request, res: Response): Promise<void> => 
  */
 export const listarFilmes = async (req: Request, res: Response) => {
   const filmes = await filmeService.listarFilmes();
+  console.log("Dados recebidos para atualizar filme:", filmes)
+
   res.json(filmes);
 };
 

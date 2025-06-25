@@ -6,10 +6,10 @@ import * as avaliacaoService from '../services/AvaliacaoService';
  * @swagger
  * /avaliacoes:
  *   post:
- *     summary: Cria uma nova avaliação para um filme
+ *     summary: Criar avaliação
+ *     description: Cria uma nova avaliação para um filme.
  *     tags: [Avaliações]
  *     requestBody:
- *       description: Dados da avaliação a ser criada
  *       required: true
  *       content:
  *         application/json:
@@ -27,57 +27,32 @@ import * as avaliacaoService from '../services/AvaliacaoService';
  *                 example: 5
  *               comentario:
  *                 type: string
- *                 example: "Filme excelente!"
+ *                 example: "Muito bom!"
  *     responses:
  *       201:
- *         description: Avaliação criada com sucesso
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 id:
- *                   type: number
- *                   example: 15
- *                 idUsuario:
- *                   type: number
- *                   example: 1
- *                 idFilme:
- *                   type: number
- *                   example: 10
- *                 nota:
- *                   type: integer
- *                   example: 5
- *                 comentario:
- *                   type: string
- *                   example: "Filme excelente!"
+ *         description: Avaliação criada
  *       400:
- *         description: Dados inválidos para criação da avaliação
+ *         description: Dados inválidos
  *       409:
- *         description: Conflito - Avaliação duplicada
+ *         description: Avaliação duplicada
  *       500:
- *         description: Erro interno do servidor
+ *         description: Erro interno
  */
 export const criarAvaliacao = async (req: Request, res: Response): Promise<void> => {
   const parseResult = avaliacaoSchema.safeParse(req.body);
-  
   if (!parseResult.success) {
     res.status(400).json({ erros: parseResult.error.errors });
     return;
   }
-
   try {
     const avaliacao = await avaliacaoService.criarAvaliacao(parseResult.data);
     res.status(201).json(avaliacao);
-    return;
   } catch (err: any) {
-    console.log('Erro ao criar avaliação:', err);
     if (err.code === 'P2002') {
       res.status(409).json({ erro: "Você já avaliou esse filme." });
       return;
     }
     res.status(500).json({ erro: "Erro ao criar avaliação", detalhes: err });
-    return;
   }
 };
 
@@ -85,44 +60,21 @@ export const criarAvaliacao = async (req: Request, res: Response): Promise<void>
  * @swagger
  * /avaliacoes:
  *   get:
- *     summary: Lista todas as avaliações
+ *     summary: Listar avaliações
+ *     description: Lista todas as avaliações.
  *     tags: [Avaliações]
  *     responses:
  *       200:
- *         description: Lista de avaliações retornada com sucesso
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: number
- *                     example: 15
- *                   idUsuario:
- *                     type: number
- *                     example: 1
- *                   idFilme:
- *                     type: number
- *                     example: 10
- *                   nota:
- *                     type: integer
- *                     example: 5
- *                   comentario:
- *                     type: string
- *                     example: "Filme excelente!"
+ *         description: Lista de avaliações
  *       500:
- *         description: Erro interno do servidor
+ *         description: Erro interno
  */
 export const listarAvaliacoes = async (req: Request, res: Response): Promise<void> =>  {
   try {
     const avaliacoes = await avaliacaoService.listarAvaliacoes();
     res.json(avaliacoes);
-    return;
   } catch (err: any) {
     res.status(500).json({ erro: "Erro ao listar avaliações", detalhes: err });
-    return;
   }
 };
 
@@ -130,7 +82,8 @@ export const listarAvaliacoes = async (req: Request, res: Response): Promise<voi
  * @swagger
  * /avaliacoes/{idUsuario}/{idFilme}:
  *   get:
- *     summary: Busca avaliação específica pelo id do usuário e do filme
+ *     summary: Buscar avaliação
+ *     description: Busca uma avaliação pelo id do usuário e do filme.
  *     tags: [Avaliações]
  *     parameters:
  *       - in: path
@@ -138,38 +91,16 @@ export const listarAvaliacoes = async (req: Request, res: Response): Promise<voi
  *         required: true
  *         schema:
  *           type: number
- *         description: ID do usuário
  *       - in: path
  *         name: idFilme
  *         required: true
  *         schema:
  *           type: number
- *         description: ID do filme
  *     responses:
  *       200:
- *         description: Avaliação encontrada com sucesso
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 id:
- *                   type: number
- *                   example: 15
- *                 idUsuario:
- *                   type: number
- *                   example: 1
- *                 idFilme:
- *                   type: number
- *                   example: 10
- *                 nota:
- *                   type: integer
- *                   example: 5
- *                 comentario:
- *                   type: string
- *                   example: "Filme excelente!"
+ *         description: Avaliação encontrada
  *       500:
- *         description: Erro interno do servidor
+ *         description: Erro interno
  */
 export const buscarAvaliacao = async (req: Request, res: Response): Promise<void> => {
   const { idUsuario, idFilme } = req.params;
@@ -185,7 +116,8 @@ export const buscarAvaliacao = async (req: Request, res: Response): Promise<void
  * @swagger
  * /avaliacoes/{idUsuario}/{idFilme}:
  *   put:
- *     summary: Atualiza uma avaliação existente
+ *     summary: Atualizar avaliação
+ *     description: Atualiza uma avaliação existente.
  *     tags: [Avaliações]
  *     parameters:
  *       - in: path
@@ -193,15 +125,12 @@ export const buscarAvaliacao = async (req: Request, res: Response): Promise<void
  *         required: true
  *         schema:
  *           type: number
- *         description: ID do usuário da avaliação
  *       - in: path
  *         name: idFilme
  *         required: true
  *         schema:
  *           type: number
- *         description: ID do filme da avaliação
  *     requestBody:
- *       description: Dados para atualização da avaliação
  *       required: true
  *       content:
  *         application/json:
@@ -213,32 +142,12 @@ export const buscarAvaliacao = async (req: Request, res: Response): Promise<void
  *                 example: 4
  *               comentario:
  *                 type: string
- *                 example: "Filme bom, mas pode melhorar"
+ *                 example: "Gostei bastante"
  *     responses:
  *       200:
- *         description: Avaliação atualizada com sucesso
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 id:
- *                   type: number
- *                   example: 15
- *                 idUsuario:
- *                   type: number
- *                   example: 1
- *                 idFilme:
- *                   type: number
- *                   example: 10
- *                 nota:
- *                   type: integer
- *                   example: 4
- *                 comentario:
- *                   type: string
- *                   example: "Filme bom, mas pode melhorar"
+ *         description: Avaliação atualizada
  *       500:
- *         description: Erro interno do servidor
+ *         description: Erro interno
  */
 export const atualizarAvaliacao = async (req: Request, res: Response): Promise<void> => {
   const { idUsuario, idFilme } = req.params;
@@ -258,7 +167,8 @@ export const atualizarAvaliacao = async (req: Request, res: Response): Promise<v
  * @swagger
  * /avaliacoes/{idUsuario}/{idFilme}:
  *   delete:
- *     summary: Deleta uma avaliação existente
+ *     summary: Deletar avaliação
+ *     description: Remove uma avaliação existente.
  *     tags: [Avaliações]
  *     parameters:
  *       - in: path
@@ -266,26 +176,16 @@ export const atualizarAvaliacao = async (req: Request, res: Response): Promise<v
  *         required: true
  *         schema:
  *           type: number
- *         description: ID do usuário da avaliação a ser deletada
  *       - in: path
  *         name: idFilme
  *         required: true
  *         schema:
  *           type: number
- *         description: ID do filme da avaliação a ser deletada
  *     responses:
  *       200:
- *         description: Avaliação deletada com sucesso
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 mensagem:
- *                   type: string
- *                   example: "Avaliação deletada com sucesso"
+ *         description: Avaliação deletada
  *       500:
- *         description: Erro interno do servidor
+ *         description: Erro interno
  */
 export const deletarAvaliacao = async (req: Request, res: Response): Promise<void> => {
   const { idUsuario, idFilme } = req.params;
