@@ -2,7 +2,7 @@
 
 > Este é o backend do projeto BoscovFilmes, responsável por fornecer as APIs e toda a lógica de negócio para o frontend.
 Foi desenvolvido em Node.js com TypeScript, utilizando Express para o servidor HTTP e Zod para validação de dados.
-
+O sistema permite que usuários se cadastrem, façam login, naveguem pelo catálogo de filmes, deixem avaliações e acompanhem seu histórico. Possui autenticação e autorização para garantir segurança e controle de acesso, além de um painel administrativo.
 ---
 
 ## 📌 Índice
